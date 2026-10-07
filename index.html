@@ -27,6 +27,7 @@
   --plum-900: #2A050C;
   --cream: #FFF7EB;
   --cream-2: #F8E7D6;
+  --cream-3: #F6E4CF;
   --white: #FFFFFF;
   --line: #1C14161A;
   --line-dark: #FFFFFF22;
@@ -204,22 +205,28 @@ button { font: inherit; }
 .ticker-track span { display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; font: 600 20px/1 var(--display); font-style: italic; letter-spacing: -0.01em; white-space: nowrap; }
 .ticker-track span::after { content: ""; width: 9px; height: 9px; background: var(--gold); transform: rotate(45deg); }
 
-/* Trust bar */
-.perks { position: relative; z-index: 2; padding-top: 48px; }
-.perks-panel { display: grid; grid-template-columns: repeat(4, 1fr); background: #fff; border-radius: 24px; box-shadow: 0 30px 60px -34px #2A050C66, 0 0 0 1px var(--line); }
-.perk { display: flex; align-items: center; gap: 16px; padding: 26px 28px; }
+/* Trust bar: full-width strip */
+.perks { position: relative; z-index: 2; background: #fff; border-bottom: 1px solid var(--line); }
+.perks-panel { display: grid; grid-template-columns: repeat(4, 1fr); }
+.perk { display: flex; align-items: center; gap: 16px; padding: 30px 28px; }
+.perk:first-child { padding-left: 0; }
 .perk + .perk { border-left: 1px solid var(--line); }
 .perk-ico { display: grid; place-items: center; width: 50px; height: 50px; border-radius: 16px; background: var(--cream-2); color: var(--plum); flex: none; }
 .perk strong { display: block; font: 600 17px/1.2 var(--display); color: var(--ink); letter-spacing: -.01em; }
 .perk span { font-size: 13.5px; line-height: 1.4; display: block; margin-top: 3px; }
-@media (max-width: 1024px) { .perks-panel { grid-template-columns: 1fr 1fr; } .perk:nth-child(3) { border-left: 0; } .perk:nth-child(n+3) { border-top: 1px solid var(--line); } }
-@media (max-width: 560px) { .perks { padding-top: 32px; } .perks-panel { grid-template-columns: 1fr; } .perk + .perk { border-left: 0; border-top: 1px solid var(--line); } .perk { padding: 18px 20px; } }
+@media (max-width: 1024px) { .perks-panel { grid-template-columns: 1fr 1fr; } .perk:nth-child(3) { border-left: 0; padding-left: 0; } .perk:nth-child(n+3) { border-top: 1px solid var(--line); } }
+@media (max-width: 560px) { .perks-panel { grid-template-columns: 1fr; } .perk + .perk { border-left: 0; border-top: 1px solid var(--line); } .perk, .perk:first-child { padding: 18px 0; } }
 
 /* =========================================================
    Sections
    ========================================================= */
 .section { padding-block: var(--section-y); position: relative; }
 .section--white { background: #fff; }
+.section--tint { background: var(--cream-3); }
+/* every light section is its own band: hairline top edge + a gold diamond marker on the join */
+.section:not(.section--night) { border-top: 1px solid var(--line); }
+.section:not(.section--night)::before { content: ""; position: absolute; z-index: 3; top: -10px; left: 50%; width: 18px; height: 18px; transform: translateX(-50%) rotate(45deg); background: var(--gold); border: 3px solid #fff; box-shadow: 0 0 0 1px #E7B65C88; }
+.section--night { border-top: 1px solid #E7B65C66; }
 .section--night { background: var(--night); }
 .head { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; margin-bottom: 60px; max-width: 760px; }
 .head--centre { align-items: center; text-align: center; margin-inline: auto; }
@@ -317,7 +324,6 @@ button { font: inherit; }
 
 /* --- Splits --- */
 .split { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-.split + .split { margin-top: var(--section-y); }
 .split-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; }
 .split--flip .split-media { order: -1; }
 .split-media { position: relative; }
@@ -512,7 +518,7 @@ button { font: inherit; }
 <!-- ============ Perks ============ -->
 <div class="perks">
   <div class="wrap">
-    <ul class="perks-panel reveal">
+    <ul class="perks-panel">
       <li class="perk"><span class="perk-ico"><svg class="ico" aria-hidden="true"><use href="#i-percent"/></svg></span><div><strong>10% off</strong><span>When you order on our website</span></div></li>
       <li class="perk"><span class="perk-ico"><svg class="ico" aria-hidden="true"><use href="#i-van"/></svg></span><div><strong>Free delivery</strong><span>Within 3 miles of your branch</span></div></li>
       <li class="perk"><span class="perk-ico"><svg class="ico" aria-hidden="true"><use href="#i-flame"/></svg></span><div><strong>Cooked to order</strong><span>Fresh from the kitchen, never waiting</span></div></li>
@@ -522,10 +528,10 @@ button { font: inherit; }
 </div>
 
 <!-- ============ Branch finder ============ -->
-<section class="section" id="branches">
+<section class="section" id="branches" style="background:var(--cream)">
   <div class="wrap">
     <div class="head reveal">
-      <span class="eyebrow">Two kitchens</span>
+      <span class="eyebrow">01 · Two kitchens</span>
       <h2 class="h2">Find Your <em>Nearest</em> Branch</h2>
       <p class="lede">Pick the kitchen closest to you. Each branch has its own menu page for ordering.</p>
     </div>
@@ -575,7 +581,7 @@ button { font: inherit; }
   <div class="wrap">
     <div class="menu-top">
       <div class="head reveal">
-        <span class="eyebrow">What we're known for</span>
+        <span class="eyebrow">02 · What we're known for</span>
         <h2 class="h2">Signature Dishes From <em>Our Kitchens</em></h2>
         <p class="lede">From slow-cooked curries to sizzling tandoori and street-food favourites, every dish is freshly prepared with quality ingredients.</p>
       </div>
@@ -660,7 +666,7 @@ button { font: inherit; }
       <div class="story-badge" aria-hidden="true"><svg class="art" viewBox="0 0 120 120"><use href="#sp-anise"/></svg></div>
     </div>
     <div class="story-copy reveal" style="--d:.12s">
-      <span class="eyebrow">Welcome to Chaska Maska</span>
+      <span class="eyebrow">03 · Welcome to Chaska Maska</span>
       <h2 class="h2">Warm Indian kitchens, <em>made for South East London</em></h2>
       <p class="lede">We bring the warmth of an Indian kitchen to your neighbourhood. Every dish is freshly prepared with quality ingredients and house-ground spices, with no artificial colours or additives.</p>
       <ul class="ticks">
@@ -680,10 +686,10 @@ button { font: inherit; }
 </section>
 
 <!-- ============ How it works ============ -->
-<section class="section">
+<section class="section" style="background:var(--cream)">
   <div class="wrap">
     <div class="head head--centre reveal">
-      <span class="eyebrow">Simple ordering</span>
+      <span class="eyebrow">04 · Simple ordering</span>
       <h2 class="h2">From Our Kitchen to <em>Your Table</em></h2>
       <p class="lede">Three quick steps and dinner is sorted.</p>
     </div>
@@ -708,10 +714,10 @@ button { font: inherit; }
 </section>
 
 <!-- ============ Why choose ============ -->
-<section class="section" id="why" style="padding-top:0">
+<section class="section section--tint" id="why">
   <div class="wrap">
     <div class="head head--centre reveal">
-      <span class="eyebrow">Why Chaska Maska</span>
+      <span class="eyebrow">05 · Why Chaska Maska</span>
       <h2 class="h2">Good Food, Fair Prices, <em>Close to Home</em></h2>
     </div>
     <ul class="bento">
@@ -746,12 +752,12 @@ button { font: inherit; }
   </div>
 </section>
 
-<!-- ============ Order direct / Dine in ============ -->
+<!-- ============ Order direct ============ -->
 <section class="section section--white">
   <div class="wrap">
     <div class="split">
       <div class="split-copy reveal">
-        <span class="eyebrow">Order direct</span>
+        <span class="eyebrow">06 · Order direct</span>
         <h2 class="h2">Order Direct <em>and Save</em></h2>
         <p class="lede">Skip the third-party apps. Ordering through our own website gives you the best prices, exclusive discounts and a faster route from our kitchen to your door. Pick your branch, build your order and we will take care of the rest.</p>
         <div class="btn-row">
@@ -765,10 +771,15 @@ button { font: inherit; }
         </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="split split--flip" id="dine-in">
+<!-- ============ Dine in ============ -->
+<section class="section" id="dine-in" style="background:var(--cream)">
+  <div class="wrap">
+    <div class="split split--flip">
       <div class="split-copy reveal">
-        <span class="eyebrow">Dine in · Brockley</span>
+        <span class="eyebrow">07 · Dine in · Brockley</span>
         <h2 class="h2">Dine In <em>With Us</em></h2>
         <p class="lede">Planning a family meal, a catch-up with friends or a celebration? Book a table and enjoy freshly cooked Indian food in a relaxed, welcoming setting.</p>
         <a class="btn btn-ink" href="https://www.chaskamaska.uk/SE4-2RS/">Book a table in Brockley <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
@@ -792,7 +803,7 @@ button { font: inherit; }
       <div class="cert-fallback" aria-hidden="true"><svg class="ico"><use href="#i-award"/></svg><span>ARTA 2025</span><strong>Chaska Maska</strong></div>
     </figure>
     <div class="arta-copy reveal" style="--d:.12s">
-      <span class="eyebrow">Awards</span>
+      <span class="eyebrow">08 · Awards</span>
       <h2 class="h2">Proud to Be Part of <em>ARTA</em></h2>
       <p class="lede">Chaska Maska takes part in the Asian Restaurant &amp; Takeaway Awards, which celebrate the best of Asian cuisine across the UK. If you enjoy our food, your nomination means a great deal to the team.</p>
       <a class="btn btn-order" href="https://www.artauk.com/" target="_blank" rel="noopener">Nominate Chaska Maska <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
@@ -807,7 +818,7 @@ button { font: inherit; }
      PLACEHOLDERS: replace each card with a real Google review before going live. -->
 <section class="section section--white">
   <div class="wrap">
-    <div class="head head--centre reveal"><span class="eyebrow">Kind words</span><h2 class="h2">What Our <em>Customers</em> Say</h2></div>
+    <div class="head head--centre reveal"><span class="eyebrow">09 · Kind words</span><h2 class="h2">What Our <em>Customers</em> Say</h2></div>
     <div class="reviews">
       <blockquote class="review reveal"><div class="stars" aria-hidden="true"></div><p>Add a Google review from a Brockley customer here.</p><footer>Customer name, Brockley</footer></blockquote>
       <blockquote class="review reveal" style="--d:.1s"><div class="stars" aria-hidden="true"></div><p>Add a Google review from a Peckham customer here.</p><footer>Customer name, Peckham</footer></blockquote>
@@ -817,7 +828,7 @@ button { font: inherit; }
 </section>
 
 <!-- ============ Final call to action ============ -->
-<section class="section section--white" style="padding-top:0">
+<section class="section section--tint" style="padding-block:88px">
   <div class="wrap">
     <div class="cta on-dark reveal">
       <div class="cta-art cta-art--l" aria-hidden="true"><svg class="art" viewBox="0 0 200 200"><use href="#d-saag"/></svg></div>
